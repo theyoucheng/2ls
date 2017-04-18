@@ -1114,6 +1114,9 @@ bool twols_parse_optionst::process_goto_program(
     if(cmdline.isset("cover-assertions"))
       make_assertions_false(goto_model);
 
+    if(cmdline.isset("auto-invariants"))
+      instrument_candidate_invariants(goto_model);
+
     // show it?
     if(cmdline.isset("show-loops"))
     {

@@ -15,6 +15,8 @@ Author: Peter Schrammel
 
 #include "2ls_parse_options.h"
 
+#include <util/cprover_prefix.h>
+#include <util/prefix.h>
 
 /*******************************************************************\
 
@@ -464,5 +466,113 @@ void twols_parse_optionst::split_loopheads(goto_modelt &goto_model)
         (*j_it)->targets.push_back(new_loophead);
       }
     }
+  }
+}
+
+/*******************************************************************\
+
+Function: twols_parse_optionst::instrument_candidate_invariants
+
+Inputs:
+
+Outputs:
+
+Purpose:
+
+\*******************************************************************/
+
+void twols_parse_optionst::instrument_candidate_invariants(
+  goto_modelt &goto_model)
+{
+  const symbol_tablet &symbol_table=goto_model.symbol_table;
+  Forall_goto_functions(f_it, goto_model.goto_functions)
+  {
+    //if(f_it->first==ID__start ||
+    //   f_it->first=="__CPROVER_initialize")
+    if(f_it->first=="main")
+      continue;
+    goto_programt &program=f_it->second.body;
+    instrument_candidate_invariants(symbol_table, program);
+  }
+}
+
+/*******************************************************************\
+
+Function: twols_parse_optionst::instrument_candidate_invariants
+
+Inputs:
+
+Outputs:
+
+Purpose:
+
+\*******************************************************************/
+
+void twols_parse_optionst::instrument_candidate_invariants(
+  const symbol_tablet &symbol_table,
+  goto_programt &goto_program)
+{
+  namespacet ns(symbol_table);
+  std::set<exprt> invars;
+  Forall_goto_program_instructions(i_it, goto_program)
+  {
+    if(!i_it->is_assign()) continue;
+    const symbol_exprt &sym=to_symbol_expr(
+        to_code_assign(i_it->code).lhs());
+
+    // is it a __CPROVER_* variable?
+    if(has_prefix(id2string(sym.get_identifier()), CPROVER_PREFIX))
+      continue;
+
+    // static lifetime?
+    if(!ns.lookup(sym.get_identifier()).is_static_lifetime)
+      continue;
+
+    // constant?
+    if(sym.type().get_bool(ID_C_constant))
+      continue;
+
+    gen_candidate_invariants(to_code_assign(i_it->code), invars);
+  }
+}
+
+/*******************************************************************\
+
+Function: twols_parse_optionst::gen_candidate_invariants
+
+Inputs:
+
+Outputs:
+
+Purpose:
+
+\*******************************************************************/
+
+void twols_parse_optionst::gen_candidate_invariants(
+  const exprt &src, 
+  std::set<exprt> &results)
+{
+  assert(src.operands().size()==2);
+  auto type_id=src.op0().type().id();
+  if(type_id==ID_int ||
+     type_id==ID_integer ||
+     type_id==ID_signedbv ||
+     type_id==ID_unsignedbv ||
+     type_id==ID_float ||
+     type_id==ID_floatbv ||
+     type_id==ID_double ||
+     type_id==ID_long ||
+     type_id==ID_longlong)
+  {
+    // guessing 1: lhs>=rhs
+    exprt expr_ge(src);
+    expr_ge.type().id(ID_bool);
+    expr_ge.id(ID_ge);
+    results.insert(expr_ge);
+    // guessing 2: lhs<=rhs
+    exprt expr_le(src);
+    expr_le.type().id(ID_bool);
+    expr_le.id(ID_le);
+    results.insert(expr_le);
   }
 }

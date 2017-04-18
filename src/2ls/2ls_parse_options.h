@@ -54,7 +54,8 @@ class optionst;
   "(graphml-witness):(json-cex):" \
   "(no-spurious-check)(stop-on-fail)" \
   "(competition-mode)(slice)(no-propagation)(independent-properties)" \
-  "(no-unwinding-assertions)"
+  "(no-unwinding-assertions)" \
+  "(auto-invariants)"
   // the last line is for CBMC-regression testing only
 
 class twols_parse_optionst:
@@ -174,6 +175,13 @@ protected:
   void add_assumptions_after_assertions(goto_modelt &goto_model);
   void filter_assertions(goto_modelt &goto_model);
   void split_loopheads(goto_modelt &goto_model);
+  void instrument_candidate_invariants(goto_modelt &goto_model);
+  void instrument_candidate_invariants(
+    const symbol_tablet &symbol_table,
+    goto_programt &goto_program);
+  void gen_candidate_invariants(
+    const exprt &src, 
+    std::set<exprt> &results);
 };
 
 #endif
