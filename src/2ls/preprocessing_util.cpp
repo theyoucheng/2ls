@@ -534,6 +534,16 @@ void twols_parse_optionst::instrument_candidate_invariants(
 
     gen_candidate_invariants(to_code_assign(i_it->code), invars);
   }
+  auto it_last=goto_program.instructions.end();
+  it_last--;
+  for(auto &in: invars)
+  {
+    goto_program.insert_before_swap(it_last);
+    it_last->make_assertion(in);
+    std::string p_string=from_expr(ns, "", in);
+    std::string comment="Candidate invariant: "+p_string;
+    it_last->source_location.set_comment(comment);
+  }
 }
 
 /*******************************************************************\
