@@ -1043,7 +1043,7 @@ bool twols_parse_optionst::process_goto_program(
 
     if(cmdline.isset("invariants-detection"))
     {
-      generate_invariants(goto_model);
+      generate_invariants(options, goto_model);
     }
 
     // now do full inlining, if requested

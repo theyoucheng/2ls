@@ -176,14 +176,18 @@ protected:
   void filter_assertions(goto_modelt &goto_model);
   void split_loopheads(goto_modelt &goto_model);
   // auto invariants generation
-  void generate_invariants(goto_modelt &goto_model);
+  void generate_invariants(
+    const optionst &options,
+    goto_modelt &goto_model);
   void instrument_candidate_invariants(
     const symbol_tablet &symbol_table,
     goto_programt &goto_program);
   void generate_candidate_invariants(
     const exprt &src,
     std::set<exprt> &results);
-  void filter_candidate_invariants(goto_modelt &goto_model);
+  void filter_candidate_invariants(
+    const optionst &options,
+    goto_modelt &goto_model);
 };
 
 #endif

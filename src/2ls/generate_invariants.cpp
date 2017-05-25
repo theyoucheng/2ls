@@ -9,6 +9,7 @@ Author: Youcheng Sun
 #include <util/cprover_prefix.h>
 #include <util/prefix.h>
 #include "2ls_parse_options.h"
+#include "../../cbmc/src/cbmc/cbmc_solvers.h"
 
 /*******************************************************************\
 
@@ -23,6 +24,7 @@ Purpose:
 \*******************************************************************/
 
 void twols_parse_optionst::generate_invariants(
+  const optionst &options,
   goto_modelt &goto_model)
 {
   const symbol_tablet &symbol_table=goto_model.symbol_table;
@@ -136,6 +138,12 @@ Purpose:
 \*******************************************************************/
 
 void twols_parse_optionst::filter_candidate_invariants(
+  const optionst &options,
   goto_modelt &goto_model)
 {
+  const symbol_tablet &symbol_table=goto_model.symbol_table;
+  optionst opts(options);
+  // opts.set_option("unwind", 10); // let's say 10 unwindings
+
+  // cbmc_solverst cbmc_somvers(opts, symbol_table, ui_message_handler);
 }
