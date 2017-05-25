@@ -79,12 +79,12 @@ void twols_parse_optionst::instrument_candidate_invariants(
   // instrument these candidate invariants in the end of a function
   auto it_last=goto_program.instructions.end();
   it_last--;
-  for(auto &invar: invars)
+  for(auto &invar : invars)
   {
     goto_program.insert_before_swap(it_last);
     it_last->make_assertion(invar);
     std::string p_string=from_expr(ns, "", invar);
-    std::string comment="Candidate Invariant: "+ p_string;
+    std::string comment="Candidate Invariant: "+p_string;
     it_last->source_location.set_comment(comment);
   }
 }
@@ -102,7 +102,7 @@ Purpose:
 \*******************************************************************/
 
 void twols_parse_optionst::generate_candidate_invariants(
-  const exprt &src, 
+  const exprt &src,
   std::set<exprt> &results)
 {
   assert(src.operands().size()==2);
@@ -117,8 +117,8 @@ void twols_parse_optionst::generate_candidate_invariants(
   expr_le.id(ID_le);
   results.insert(expr_le);
   //// candidate 3: lhs==rhs
-  //exprt expr_eq(src);
-  //expr_eq.type().id(ID_bool);
-  //expr_eq.id(ID_equal);
-  //results.insert(expr_eq);
+  // exprt expr_eq(src);
+  // expr_eq.type().id(ID_bool);
+  // expr_eq.id(ID_equal);
+  // results.insert(expr_eq);
 }

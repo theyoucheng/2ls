@@ -181,7 +181,7 @@ protected:
     const symbol_tablet &symbol_table,
     goto_programt &goto_program);
   void generate_candidate_invariants(
-    const exprt &src, 
+    const exprt &src,
     std::set<exprt> &results);
 };
 
