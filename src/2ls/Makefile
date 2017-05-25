@@ -10,7 +10,8 @@ SRC = 2ls_main.cpp 2ls_parse_options.cpp \
       cover_goals_ext.cpp horn_encoding.cpp \
       preprocessing_util.cpp \
       instrument_goto.cpp dynamic_cfg.cpp \
-      graphml_witness_ext.cpp
+      graphml_witness_ext.cpp \
+      generate_invariants.cpp
 
 OBJ+= $(CBMC)/src/ansi-c/ansi-c$(LIBEXT) \
       $(CBMC)/src/linking/linking$(LIBEXT) \

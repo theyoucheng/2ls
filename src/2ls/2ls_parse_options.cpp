@@ -1041,6 +1041,11 @@ bool twols_parse_optionst::process_goto_program(
     // remove returns (must be done after function pointer removal)
     remove_returns(goto_model);
 
+    if(cmdline.isset("invariants-detection"))
+    {
+      generate_invariants(goto_model);
+    }
+
     // now do full inlining, if requested
     if(options.get_bool_option("inline"))
     {
@@ -1562,6 +1567,7 @@ void twols_parse_optionst::help()
 #endif
     " --no-arch                    don't set up an architecture\n"
     " --no-library                 disable built-in abstract C library\n"
+    " --invariants-detection       automatic invariants generation\n"
     " --round-to-nearest           IEEE floating point rounding mode (default)\n" // NOLINT(*)
     " --round-to-plus-inf          IEEE floating point rounding mode\n"
     " --round-to-minus-inf         IEEE floating point rounding mode\n"
