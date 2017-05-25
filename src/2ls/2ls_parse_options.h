@@ -175,7 +175,7 @@ protected:
   void add_assumptions_after_assertions(goto_modelt &goto_model);
   void filter_assertions(goto_modelt &goto_model);
   void split_loopheads(goto_modelt &goto_model);
-  // invariants auto generation
+  // auto invariants generation
   void generate_invariants(goto_modelt &goto_model);
   void instrument_candidate_invariants(
     const symbol_tablet &symbol_table,
@@ -183,6 +183,7 @@ protected:
   void generate_candidate_invariants(
     const exprt &src,
     std::set<exprt> &results);
+  void filter_candidate_invariants(goto_modelt &goto_model);
 };
 
 #endif

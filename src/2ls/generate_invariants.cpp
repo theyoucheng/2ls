@@ -122,3 +122,20 @@ void twols_parse_optionst::generate_candidate_invariants(
   // expr_eq.id(ID_equal);
   // results.insert(expr_eq);
 }
+
+/*******************************************************************\
+
+Function: twols_parse_optionst::filter_candidate_invariants
+
+Inputs:
+
+Outputs:
+
+Purpose:
+
+\*******************************************************************/
+
+void twols_parse_optionst::filter_candidate_invariants(
+  goto_modelt &goto_model)
+{
+}
