@@ -27,6 +27,16 @@ OBJ+= $(CBMC)/src/ansi-c/ansi-c$(LIBEXT) \
       $(CBMC)/src/solvers/solvers$(LIBEXT) \
       $(CBMC)/src/util/util$(LIBEXT) \
       $(CBMC)/src/goto-instrument/unwind$(OBJEXT) \
+      $(CBMC)/src/cbmc/cbmc_solvers$(OBJEXT) \
+      $(CBMC)/src/cbmc/bv_cbmc$(OBJEXT) \
+      $(CBMC)/src/cbmc/cbmc_dimacs$(OBJEXT) \
+      $(CBMC)/src/cbmc/symex_bmc$(OBJEXT) \
+      $(CBMC)/src/cbmc/bmc$(OBJEXT) \
+      $(CBMC)/src/cbmc/fault_localization$(OBJEXT) \
+      $(CBMC)/src/cbmc/show_vcc$(OBJEXT) \
+      $(CBMC)/src/cbmc/all_properties$(OBJEXT) \
+      $(CBMC)/src/cbmc/counterexample_beautification$(OBJEXT) \
+      $(CBMC)/src/cbmc/bmc_cover$(OBJEXT) \
       ../domains/domains$(LIBEXT) \
       ../ssa/ssa$(LIBEXT) \
       ../solver/solver$(LIBEXT) \
